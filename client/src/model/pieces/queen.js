@@ -7,20 +7,9 @@ class queen extends Piece
             super(c, t);
             this.prototype = Piece;
       }
-      isValidmove(fromX, fromY, toX, toY, notBlocked)
+      isValidmove(fromX, fromY, toX, toY, notBlocked = false)
       {
-            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+
             if(!notBlocked)
             {
                   return false;

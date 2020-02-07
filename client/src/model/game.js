@@ -22,35 +22,28 @@ export default class Game
             var DirectionHandler = new Direction;
             //gets direction
             const dir = DirectionHandler.whatDirection(pos, newpos);
-            if(dir== -1)
+            if(pos[0] == newpos[0] && pos[1] == newpos[1])
             {
                   return false;
             }
-            // console.log(dir);
-            // console.log(blocking);
+
+            var notBlocked;
             const diff = DirectionHandler.distance(pos,newpos);
-
-            // console.log();
-            var notBlocked = DirectionHandler.blocked_pos(dir, diff[0], diff[1], blocking[dir][0], blocking[dir][1]);
-            if(blocking[dir][0] == 0 && blocking[dir][1] == 0)
+            if(dir== -1)
             {
-                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-                  console.log(notBlocked + 0 + 0);
-                  notBlocked = true;
-            }
-            // console.log(notBlocked + newpos);
 
+                  notBlocked =  false;
+            }
+            else
+            {
+                  var notBlocked = DirectionHandler.blocked_pos(dir, diff[0], diff[1], blocking[dir][0], blocking[dir][1]);
+                  if(blocking[dir][0] == 0 && blocking[dir][1] == 0)
+                  {
+
+                        console.log(notBlocked + 0 + 0);
+                        notBlocked = true;
+                  }
+            }
             if(this.board[pos[0]][pos[1]] == {})
             {
                   console.log("invalid position");
@@ -61,27 +54,29 @@ export default class Game
                   if(dir == -1)
                   {
                         console.log("dir error");
-                        return false;
                   }
                   else
                   {
-                        // console.log("phewkjefkjwerkljwerkljweklrjlwek");
                         if(notBlocked)
                         {
                               blocking[dir] = diff;
                         }
                   }
 
-                  //console.log(this.board[newpos[0]][newpos[1]]);
                   if(this.board[pos[0]][pos[1]].getColor() == this.board[newpos[0]][newpos[1]].getColor())
                   {
-                        // console.log("piece of same color");
+                        console.log("piece of same color");
+                        console.log(diff);
+                        console.log("piece of same color");
                         // console.log(newpos[0] + newpos[1]);
                         return false;
                   }
-                  // console.log(blocking[dir]);
             }
-
+            //for knight moves which blocking isnt relavent
+            if( this.board[pos[0]][pos[1]].isValidmove(pos[0], pos[1], newpos[0], newpos[1]))
+            {
+                  return true;
+            }
             if( this.board[pos[0]][pos[1]].isValidmove(pos[0], pos[1], newpos[0], newpos[1], notBlocked))
             {
                   return true;

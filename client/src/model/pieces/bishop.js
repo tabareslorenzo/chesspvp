@@ -7,8 +7,12 @@ class bishop extends Piece
             super(c, t);
             this.prototype = Piece;
       }
-      isValidmove(fromX, fromY, toX, toY)
+      isValidmove(fromX, fromY, toX, toY, notBlocked = false)
       {
+            if(!notBlocked)
+            {
+                  return false;
+            }
             return true;
       }
 }

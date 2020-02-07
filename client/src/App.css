@@ -1,0 +1,23 @@
+*{
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+}
+header{
+      /* background-color: green; */
+}
+.app{
+      width: 80%;
+      max-width: 100%;
+      max-height: -webkit-fill-available;
+
+
+}
+body{
+
+      background-color: lightblue;
+}
+a{
+      color: []#333;
+      text-decoration: none;
+}

@@ -1,0 +1,13 @@
+.Grid{
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%;
+      table-layout: fixed;
+      /* width: 40%;
+      border-radius: 10% / 50%;
+      border-color: black;
+      border-width: medium; */
+
+      /* height: 100%; */
+      /* border-radius: 50% 20% / 10% 40%; */
+}

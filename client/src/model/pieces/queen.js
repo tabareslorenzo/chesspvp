@@ -7,8 +7,29 @@ class queen extends Piece
             super(c, t);
             this.prototype = Piece;
       }
-      isValidmove(fromX, fromY, toX, toY)
+      isValidmove(fromX, fromY, toX, toY, notBlocked)
       {
+            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+            console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+            if(!notBlocked)
+            {
+                  return false;
+            }
+            // var DirectionHandler = new Direction;
+            // const DirEnum = DirectionHandler.defineDir()
+            // const diff = DirectionHandler.calc_diff([fromX, fromY], [toX, toY]);
+            // if()
+
             return true;
       }
 }

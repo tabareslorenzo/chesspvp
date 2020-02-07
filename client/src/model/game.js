@@ -1,5 +1,6 @@
 import generateBoard from './generatorBoard.js';
 import Piece from './pieces/piece.js';
+import Direction from './direction.js';
 export default class Game
 {
       constructor(board = this.newBoard().init(), selectedpos = [-1,-1], yourTurn = true)
@@ -14,100 +15,42 @@ export default class Game
       {
             return new generateBoard(8,8);
       }
-      // const dir = {
-      //     UP: "0,1",
-      //     DOWN: "0,-1",
-      //     LEFT: "-1,0",
-      //     RIGHT: "1,0",
-      //     UPRIGHT: "1,1",
-      //     UPLEFT: "-1,1",
-      //     DOWNRIGHT: "1,-1",
-      //     DOWNLEFT: "-1,-1",
-      // }
-      defineDir()
-      {
-            const dir = {
-                UP: "0,1",
-                DOWN: "0,-1",
-                LEFT: "-1,0",
-                RIGHT: "1,0",
-                UPRIGHT: "1,1",
-                UPLEFT: "-1,1",
-                DOWNRIGHT: "1,-1",
-                DOWNLEFT: "-1,-1",
-            }
-            return dir;
-      }
-      whatDirection(diff)
-      {
-            var dir;
-            const D = this.defineDir();
-            console.log(diff);
-            console.log(D.UP);
-            console.log("hewjrkhwejkrhjwekr");
-            console.log("hewjrkhwejkrhjwekr");
-            console.log("hewjrkhwejkrhjwekr");
-            console.log("hewjrkhwejkrhjwekr");
-            console.log("hewjrkhwejkrhjwekr");
-            //
-            switch(diff)
-            {
-                  case D.UP:
-                        dir = 0;
-                        break;
-                  case D.DOWN:
-                        dir = 1;
-                        break;
-                  case D.LEFT:
-                        dir = 2;
-                        break;
-                  case D.RIGHT:
-                        dir = 3;
-                        break;
-                  case D.UPRIGHT:
-                        dir = 4;
-                        break;
-                  case D.UPLEFT:
-                        dir = 5;
-                        break;
-                  case D.DOWNRIGHT:
-                        dir = 6;
-                        break;
-                  case D.DOWNLEFT:
-                        dir = 7;
-                        break;
-                  default:
-                        dir = -1;
-                        break;
-            }
-            return dir;
 
-      }
       valid_pos(pos, newpos, blocking)
       {
-            // console.log(newpos);
-            //fix this div by itself
-            var diff = [(newpos[0]-pos[0]), (newpos[1]-pos[1])];
-            if(diff[0] == 0 && diff[1] == 0)
+
+            var DirectionHandler = new Direction;
+            //gets direction
+            const dir = DirectionHandler.whatDirection(pos, newpos);
+            if(dir== -1)
             {
                   return false;
             }
-            if(diff[0]!=0)
+            // console.log(dir);
+            // console.log(blocking);
+            const diff = DirectionHandler.distance(pos,newpos);
+
+            // console.log();
+            var notBlocked = DirectionHandler.blocked_pos(dir, diff[0], diff[1], blocking[dir][0], blocking[dir][1]);
+            if(blocking[dir][0] == 0 && blocking[dir][1] == 0)
             {
-                  diff[0] = diff[0]/Math.abs(diff[0]);
+                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+                  // console.log(notBlocked + "wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+                  console.log(notBlocked + 0 + 0);
+                  notBlocked = true;
             }
-            if(diff[1]!=0)
-            {
-                  diff[1] = diff[1]/Math.abs(diff[1]);
-            }
+            // console.log(notBlocked + newpos);
 
-            // console.log(pos + newpos);
-            // console.log(diff);
-            diff = diff[0].toString() + ',' + diff[1].toString();
-            // console.log(diff);
-
-
-            const dir = this.whatDirection(diff);
             if(this.board[pos[0]][pos[1]] == {})
             {
                   console.log("invalid position");
@@ -115,7 +58,6 @@ export default class Game
             }
             else if(this.board[newpos[0]][newpos[1]] instanceof Piece)
             {
-
                   if(dir == -1)
                   {
                         console.log("dir error");
@@ -123,20 +65,24 @@ export default class Game
                   }
                   else
                   {
-                        console.log("phewkjefkjwerkljwerkljweklrjlwek");
-                        blocking[dir] = false;;
+                        // console.log("phewkjefkjwerkljwerkljweklrjlwek");
+                        if(notBlocked)
+                        {
+                              blocking[dir] = diff;
+                        }
                   }
 
                   //console.log(this.board[newpos[0]][newpos[1]]);
                   if(this.board[pos[0]][pos[1]].getColor() == this.board[newpos[0]][newpos[1]].getColor())
                   {
-                        console.log("piece of same color");
-                        console.log(newpos[0] + newpos[1]);
+                        // console.log("piece of same color");
+                        // console.log(newpos[0] + newpos[1]);
                         return false;
                   }
-                  console.log(blocking[dir]);
+                  // console.log(blocking[dir]);
             }
-            if( this.board[pos[0]][pos[1]].isValidmove(pos[0], pos[1], newpos[0], newpos[1], blocking[dir]))
+
+            if( this.board[pos[0]][pos[1]].isValidmove(pos[0], pos[1], newpos[0], newpos[1], notBlocked))
             {
                   return true;
             }
@@ -160,12 +106,55 @@ export default class Game
 
             console.log(typeof this.board);
             console.log(this.board);
+            //
+            for(var i in this.board)
+            {
+                  for(var j in this.board[i])
+                  {
+
+                        if(pos[0] < 0 || pos[1] < 0 || pos[0] >= this.board.length || pos[1] >= this.board[0].length)
+                        {
+
+                        }
+                        else if(pos[0] == i && pos[1] ==j)
+                        {
+                              console.log("Come on!!!!!");
+                        }
+                        else
+                        {
+                              console.log(i);
+                              console.log(j);
+                              this.valid_pos(pos, [i,j], blocking);
+
+                        }
+                  }
+            }
+            for(var i in blocking)
+            {
+                  console.log(blocking[i]);
+            }
+            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
+            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
+            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
+            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
+            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
+            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
+            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
+            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
+            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
+            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
+            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
+            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
+            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
+            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
+            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
             for(var i in this.board)
             {
                   // console.log(this.board[i]);
                   moves.push([]);
                   for(var j in this.board[i])
                   {
+
                         if(pos[0] < 0 || pos[1] < 0 || pos[0] >= this.board || pos[1] >= this.board[0])
                         {
                               moves[i].push(false);

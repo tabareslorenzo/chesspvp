@@ -11,15 +11,15 @@ class pawn extends Piece
       }
       isValidmove(fromX, fromY, toX, toY, notBlocked = false, notOne = true)
       {
-            if(fromX == 1 && fromY == 3)
-            {
-                  console.log(notOne);
-                  console.log(fromX);
-                  console.log(fromY);
-                  console.log(toX);
-                  console.log(toY);
-                  console.log("ehjhjekhr");
-            }
+            // if(fromX == 1 && fromY == 3)
+            // {
+            //       console.log(notOne);
+            //       console.log(fromX);
+            //       console.log(fromY);
+            //       console.log(toX);
+            //       console.log(toY);
+            //       console.log("ehjhjekhr");
+            // }
             if(!notBlocked || notOne)
             {
                   return false;

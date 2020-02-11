@@ -17,9 +17,15 @@ export default class generateBoard
       }
       piece(p)
       {
-            // console.log("wkerkjwekrjwerkjew");
             var obj;
-            // console.log(obj);
+            obj = {};
+            // console.log(p);
+            // if(p == null || p== undefined)
+            // {
+            //       return p;
+            // }
+
+            // console.log(p);
             switch(p.type)
             {
                   case 'rook':
@@ -40,10 +46,6 @@ export default class generateBoard
                   case 'pawn':
                         obj = new pawn(p.color, 'pawn', p.id);
                         break;
-                  default:
-                        // console.log(obj.type);
-                        obj = {};
-                        return obj;
             }
             obj.prototype = Piece;
             // console.log(obj.prototype);

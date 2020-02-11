@@ -76,7 +76,7 @@ export default class Game
                         return false;
                   }
             }
-      
+
             //for knight moves which blocking isnt relavent
             if( this.board[pos[0]][pos[1]].isValidmove(pos[0], pos[1], newpos[0], newpos[1]))
             {
@@ -107,6 +107,12 @@ export default class Game
 
 
       }
+      fix(p)
+      {
+            const brd = new generateBoard();
+            p = brd.piece(p);
+            return p;
+      }
       // pos = x and y position
       valid_moves(pos, obj = {})
       {
@@ -114,10 +120,31 @@ export default class Game
             var blocking = [[0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0]];
             // console.log(blocking.length);
 
+
+
             //func to with switch statment and (calc) dir
 
             this.selectedpos = pos;
             var moves = [];
+            if(pos[0] < 0 || pos[1] < 0 || pos[0] >= this.board.length || pos[1] >= this.board[0].length)
+            {
+
+            }
+            else {
+                  if(!(this.board[pos[0]][pos[1]] instanceof Piece))
+                  {
+                        // console.log(this.board);
+                        // console.log(this.board[pos[0]][pos[1]]);
+                        // if(this.board[pos[0]][pos[1]] != null && this.board[pos[0]][pos[1]] != undefined)
+                        // {
+                        //       this.board[pos[0]][pos[1]] = this.fix(this.board[pos[0]][pos[1]]);
+                        // }
+                        //
+                        // console.log(this.board[pos[0]][pos[1]]);
+                  }
+
+            }
+
 
 
             // console.log(typeof this.board);
@@ -144,10 +171,14 @@ export default class Game
                               this.board[pos[0]][pos[1]] = obj;
                               // console.log(obj);
                               this.valid_pos(pos, [i,j], blocking);
+                              // console.log('ejkrwejrkwejrlkwje');
 
                         }
                         else if(!(this.board[pos[0]][pos[1]] instanceof Piece))
                         {
+                              console.log(obj);
+
+
                               // if(this.board[pos[0]][pos[1]] != {})
                               // {
                               //

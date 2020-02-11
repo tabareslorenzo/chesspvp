@@ -34,7 +34,7 @@ export default class AI
 
             // var nextGameState = new Game(JSON.parse(this.prevBoard));
             // this.game.fixboard();
-            var res = this.minimax(whitePieces, blackPieces, this.game, false, 2);
+            var res = this.minimax(whitePieces, blackPieces, this.game, false, 1);
             console.log(res);
             var move = res.move;
             var pos = res.piece;
@@ -100,7 +100,7 @@ export default class AI
 
       minimax(map1, map2, game, white, depth)
       {
-            //game.fixboard();
+            // game.fixboard();
             // console.log("klejwrhwjerkjh");
             // console.log(depth);
             // console.log(white);
@@ -138,7 +138,7 @@ export default class AI
                         var i = JSON.parse(x[0]);
 
                         // console.log(i);
-                        var possible_moves = this.listofmoves(game.valid_moves(i));
+                        var possible_moves = this.listofmoves(game.valid_moves(i, this.game.fix(x[1])));
                         if(possible_moves.length>0)
                         {
                               // console.log(x);
@@ -218,10 +218,13 @@ export default class AI
 
 
 
+                        // game.fixboard();
+                        // console.log(this.game.fix(x[1] instanceOf Piece);
+                        var possible_moves = this.listofmoves(this.game.valid_moves(i, this.game.fix(x[1])));
+                        // console.log(this.game.fix(x[1]));
+                        console.log(x[1]);
 
-                        const possible_moves = this.listofmoves(game.valid_moves(i));
-
-                        // console.log(possible_moves);
+                        console.log(possible_moves);
                         if(possible_moves.length>0)
                         {
                               // console.log(x);

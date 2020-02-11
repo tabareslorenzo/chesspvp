@@ -1,7 +1,8 @@
 import React, {Component}  from 'react';
 import './App.css';
 import  Game from './model/game.js';
-import Grid from './components/grid.js'
+import AI from './model/AI/minimax.js';
+import Grid from './components/grid.js';
 
 
 
@@ -21,24 +22,31 @@ class App extends Component {
       {
             // var pieces = [];
 
-            game = new Game();
+            gameState = new Game();
+            ai = new AI(gameState);
+
+
+
+
 
 
             const pos = [0,0];
             // var validMoves = game.valid_moves(pos);
-            this.updateView();
+            this.updateView(gameState);
 
 
 
 
 
       }
-      updateView = () =>
+      updateView = (game) =>
       {
+            // console.log(game);
             this.setState({spaces: []});
-            console.log(this.state.spaces);
+            // console.log(this.state.spaces);
             const info = game.getState();
             // this.state.spaces.row = [];
+            console.log(info);
             // console.log(this.state.spaces.row);
 
             // for(var i in info)
@@ -46,22 +54,38 @@ class App extends Component {
             //       this.state.spaces.push(info[i])
             // }
             this.setState({spaces: info});
-            console.log(this.state.spaces);
+            // console.log(this.state.spaces);
+            this.setState({spaces: info});
+            // console.log(this.state.spaces);
             // console.log(this.state);
+            this.state.spaces = info;
+            this.forceUpdate();
+            console.log(this.state);
       }
       pieceSelected = (x,y) =>
       {
             console.log("sdkjfksjdkl");
-            game.valid_moves([x,y]);
-            this.updateView();
+            gameState.valid_moves([x,y]);
+            this.updateView(gameState);
       }
       moveSelected = (x,y) =>
       {
             console.log("werwer");
-            game.makeMove(x,y);
-            this.updateView();
+            gameState.makeMove(x,y);
+            // game.endTurn();
+            this.updateView(gameState);
+            // console.log(this.state);
+            // ai = new AI(gameState);
+            ai.makeMove();
+            console.log(ai.getBoard());
+            gameState = new Game(ai.getBoard(), [-1,-1]);
+            // game
+
+            // gameState = new Game(ai.getBoard);
+            this.updateView(gameState);
       }
       render(){
+            // console.log(this.state);
         return (
           <div>
             <header className="App-header">
@@ -77,6 +101,7 @@ class App extends Component {
         );
  }
 }
-var game;
+var gameState;
+var ai;
 
 export default App;

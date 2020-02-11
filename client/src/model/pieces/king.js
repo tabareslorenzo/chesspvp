@@ -1,19 +1,25 @@
 import Piece from './piece.js'
+import Direction from '.././direction.js';
 
 class king extends Piece
 {
-      constructor(c, t)
+      constructor(c, t, id)
       {
-            super(c, t);
+            super(c, t, id);
+            this.value = 1000;
             this.prototype = Piece;
       }
-      isValidmove(fromX, fromY, toX, toY, notBlocked = false)
+      isValidmove(fromX, fromY, toX, toY, notBlocked = false, notOne = true)
       {
-            if(!notBlocked)
+            if(!notBlocked || notOne)
             {
                   return false;
             }
             return true;
+      }
+      getValue()
+      {
+            return this.value;
       }
 }
 

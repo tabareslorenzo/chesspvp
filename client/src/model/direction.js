@@ -8,9 +8,9 @@ export default class Direction
       {
             if(newpos[1]-pos[1]==1)
             {
-                  console.log("wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-                  console.log("wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
-                  console.log("wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+                  // console.log("wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+                  // console.log("wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
+                  // console.log("wlekjlrlkwjerkljwelkrjlkwejqrklwejrklweqjrlkejwrlkwerlk");
             }
 
             return [(pos[0]-newpos[0]), (newpos[1]-pos[1])];
@@ -105,7 +105,7 @@ export default class Direction
                         dir = 7;
                         break;
                   default:
-                        console.log(diff);
+                        // console.log(diff);
                         dir = -1;
                         break;
             }
@@ -128,8 +128,8 @@ export default class Direction
             switch(dir)
             {
                   case D.UP:
-                        console.log(y0);
-                        console.log(y1);
+                        // console.log(y0);
+                        // console.log(y1);
                         notBlocked = this.isCloser(x0,x1);
                         // if(y0<y1)
                         // {
@@ -137,8 +137,8 @@ export default class Direction
                         // }
                         break;
                   case D.DOWN:
-                        console.log(y0);
-                        console.log(y1);
+                        // console.log(y0);
+                        // console.log(y1);
                         notBlocked = this.isCloser(x0,x1);
                         // if(y0>y1)
                         // {
@@ -167,11 +167,11 @@ export default class Direction
                         // }
                         break;
                   case D.UPLEFT:
-                        console.log(y0);
-                        console.log(x0);
-                        console.log(y1);
-
-                        console.log(x1);
+                        // console.log(y0);
+                        // console.log(x0);
+                        // console.log(y1);
+                        //
+                        // console.log(x1);
                         notBlocked = this.isCloser(y0,y1,x0,x1);
                         // if(y0<y1 || x0>x1)
                         // {

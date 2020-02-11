@@ -8,8 +8,13 @@ export default class Game
             this.board = board;
             this.yourTurn = yourTurn;
             this.selectedpos = selectedpos;
+            // console.log(this.selectedpos);
+            // console.log(selectedpos);
             this.highPos = this.valid_moves(selectedpos);
-            console.log(this.highPos);
+            this.saveState = '';
+            this.nextsSelected = '';
+            // console.log(board);
+            // console.log(this.highPos);
       }
       newBoard()
       {
@@ -18,7 +23,6 @@ export default class Game
 
       valid_pos(pos, newpos, blocking)
       {
-
             var DirectionHandler = new Direction;
             //gets direction
             const dir = DirectionHandler.whatDirection(pos, newpos);
@@ -40,20 +44,20 @@ export default class Game
                   if(blocking[dir][0] == 0 && blocking[dir][1] == 0)
                   {
 
-                        console.log(notBlocked + 0 + 0);
+                        // console.log(notBlocked + 0 + 0);
                         notBlocked = true;
                   }
             }
             if(this.board[pos[0]][pos[1]] == {})
             {
-                  console.log("invalid position");
+                  // console.log("invalid position");
                   return false;
             }
             else if(this.board[newpos[0]][newpos[1]] instanceof Piece)
             {
                   if(dir == -1)
                   {
-                        console.log("dir error");
+                        // console.log("dir error");
                   }
                   else
                   {
@@ -62,22 +66,38 @@ export default class Game
                               blocking[dir] = diff;
                         }
                   }
-
+                  // console.log();
                   if(this.board[pos[0]][pos[1]].getColor() == this.board[newpos[0]][newpos[1]].getColor())
                   {
-                        console.log("piece of same color");
-                        console.log(diff);
-                        console.log("piece of same color");
+                        // console.log("piece of same color");
+                        // console.log(diff);
+                        // console.log("piece of same color");
                         // console.log(newpos[0] + newpos[1]);
                         return false;
                   }
             }
+      
             //for knight moves which blocking isnt relavent
             if( this.board[pos[0]][pos[1]].isValidmove(pos[0], pos[1], newpos[0], newpos[1]))
             {
                   return true;
             }
             if( this.board[pos[0]][pos[1]].isValidmove(pos[0], pos[1], newpos[0], newpos[1], notBlocked))
+            {
+                  return true;
+            }
+            //for king and pawn
+            var notOne = true;
+            if(Math.abs(diff[0]) == 1 || Math.abs(diff[1]) == 1)
+            {
+                  if(pos[0]==1 && pos[3]==1)
+                  {
+                        console.log(diff);
+                  }
+                  // console.log(diff);
+                  notOne = false;
+            }
+            if(this.board[pos[0]][pos[1]].isValidmove(pos[0], pos[1], newpos[0], newpos[1], notBlocked, notOne))
             {
                   return true;
             }
@@ -88,20 +108,23 @@ export default class Game
 
       }
       // pos = x and y position
-      valid_moves(pos)
+      valid_moves(pos, obj = {})
       {
 
             var blocking = [[0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0], [0,0]];
-            console.log(blocking.length);
+            // console.log(blocking.length);
 
             //func to with switch statment and (calc) dir
 
             this.selectedpos = pos;
             var moves = [];
 
-            console.log(typeof this.board);
-            console.log(this.board);
+
+            // console.log(typeof this.board);
+            // console.log(this.board);
             //
+            // console.log(pos);
+            // console.log(this.board);
             for(var i in this.board)
             {
                   for(var j in this.board[i])
@@ -111,38 +134,46 @@ export default class Game
                         {
 
                         }
-                        else if(pos[0] == i && pos[1] ==j)
+                        else if(pos[0] == i && pos[1] == j)
                         {
-                              console.log("Come on!!!!!");
+                              // console.log();
+                              // console.log("Come on!!!!!");
+                        }
+                        else if (obj instanceof Piece)
+                        {
+                              this.board[pos[0]][pos[1]] = obj;
+                              // console.log(obj);
+                              this.valid_pos(pos, [i,j], blocking);
+
+                        }
+                        else if(!(this.board[pos[0]][pos[1]] instanceof Piece))
+                        {
+                              // if(this.board[pos[0]][pos[1]] != {})
+                              // {
+                              //
+                              //       // this.board[pos[0]][pos[1]] = new Piece(this.board[pos[0]][pos[1]]);
+                                    // console.log(this.board[pos[0]][pos[1]]);
+                              // }
+                              // else
+                              // {
+                              //       return moves;
+                              // }
+                              return moves;
+
+                              // console.log("ops");
+
                         }
                         else
                         {
-                              console.log(i);
-                              console.log(j);
+                              // console.log(this.board[pos[0]][pos[1]]);
+                              // console.log(i);
+                              // console.log(j);
                               this.valid_pos(pos, [i,j], blocking);
 
                         }
                   }
             }
-            for(var i in blocking)
-            {
-                  console.log(blocking[i]);
-            }
-            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
-            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
-            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
-            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
-            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
-            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
-            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
-            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
-            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
-            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
-            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
-            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
-            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
-            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
-            // console.log("wkehjjkwherjkherkjhewrjkhwejkwehrjkewr");
+
             for(var i in this.board)
             {
                   // console.log(this.board[i]);
@@ -165,8 +196,9 @@ export default class Game
                   }
 
             }
-            console.log(this.highPos);
+            // console.log(this.highPos);
             this.highPos = moves;
+            // console.log(moves);
             return moves;
 
 
@@ -174,9 +206,12 @@ export default class Game
       getObject(element, x, y)
       {
             var obj;
-            console.log(this.highPos[x][y]);
+            // console.log(this.highPos[x][y]);
+            // console.log(element);
+            // console.log(element.prototype);
             if(element instanceof Piece)
             {
+                  // console.log(element);
                   obj = {
                         url: element.getUrl(),
                         changeBackground: this.highPos[x][y],
@@ -197,25 +232,74 @@ export default class Game
             // console.log(obj);
 
       }
+
       makeMove(x,y)
       {
-            console.log(this.selectedpos);
+            // console.log(this.selectedpos);
             const x0 = this.selectedpos[0];
             const y0 = this.selectedpos[1];
-            console.log(x);
-            console.log(y);
-            console.log(this.selectedpos);
+            // console.log(x);
+            // console.log(y);
+            // console.log(this.selectedpos);
+            //
+            // console.log(this.board[x0][y0]);
+            // console.log(this.board[x][y]);
+            // var store = [];
+            //
+            // store.push({
+            //       pos:[x0,y0],
+            //       obj: this.board[x0][y0]
+            // });
+            // // console.log(this.board);
+            //
+            // // console.log('jhjhjk');
+            var obj1;
+            // //typeof myVar !== 'undefined'
+            if(typeof this.board[x][y] !== 'undefined')
+            {
+                  obj1 = this.board[x][y];
+            }
+            else {
+                  obj1 = {};
+            }
+            //
+            // store.push({
+            //       pos:[x,y],
+            //       obj: obj1
+            // });
+            // this.prevMove = store;
+            // console.log(this.prevMove);
+            // console.log(this.board);
+            // console.log(this.board[x][y]);
+            // console.log(x0);
+            // console.log(y0);
+            // console.log(this.board[x0][y0]);
+            this.board[x][y] = obj1;
 
-            console.log(this.board[x0][y0]);
-            console.log(this.board[x][y]);
             this.board[x][y] = this.board[x0][y0];
 
             this.board[x0][y0] = {};
+            this.endTurn();
+
+      }
+      endTurn()
+      {
             this.valid_moves([-1,-1]);
+      }
+      fixboard()
+      {
+            const brd = new generateBoard();
+            return brd.gen(this.board);
       }
       getState()
       {
             // this.board[][].prototype instanceof Piece)
+            // console.log(this.board);
+
+            // console.log(this.board);
+            this.board = this.fixboard();
+            // console.log(this.board);
+
             var isfull = [];
             for(var i in this.board)
             {
@@ -246,5 +330,62 @@ export default class Game
             return isfull;
 
       }
+      getPiecesPositions()
+      {
+            var blackPieces = new Map();
+            var whitePieces = new Map();
+            // console.log("wehjrjkwerj");
+            // console.log(this.board);
+
+            for(var i = 0; i < this.board.length; i++)
+            {
+                  // console.log("outer");
+                  for(var j = 0; j < this.board[i].length; j++)
+                  {
+                        // console.log("inner");
+                        if(this.board[i][j] instanceof Piece)
+                        {
+                              // console.log(this.board[i][j]);
+                              // console.log(this.board[i][j].getID());
+                              // console.log([i,j].toString());
+                              this.board[i][j].prototype = Piece;
+                              if(this.board[i][j].getColor()=='b')
+                              {
+                                    blackPieces.set(JSON.stringify([i,j]), this.board[i][j]);
+                              }
+                              else
+                              {
+                                    whitePieces.set(JSON.stringify([i,j]), this.board[i][j]);
+                              }
+                        }
+                  }
+
+            }
+
+            return {blackPieces, whitePieces};
+      }
+      getBoard()
+      {
+            return this.board;
+      }
+      save()
+      {
+            this.saveState = JSON.stringify(this.board);
+
+      }
+      load(sel)
+      {
+
+            this.board = JSON.parse(this.saveState);
+            // console.log(this.board);
+            this.setSelected(sel);
+             this.valid_moves(this.selectedpos);
+      }
+      setSelected(sel)
+      {
+            // console.log(sel);
+            this.selectedpos = sel;
+      }
+
 
 }

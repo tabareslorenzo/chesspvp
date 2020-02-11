@@ -1,10 +1,11 @@
 class Piece
 {
-      constructor(c,t)
+      constructor(c,t, id)
       {
             this.color = c;
             this.type = t;
             this.url = c + '-' + t + '.png';
+            this.id = id;
             this.prototype = Piece;
       }
 
@@ -20,6 +21,10 @@ class Piece
       getUrl()
       {
             return this.url;
+      }
+      getID()
+      {
+            return this.id;
       }
 
 

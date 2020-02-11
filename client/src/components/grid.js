@@ -20,6 +20,7 @@ class Grid extends Component
       }
 
       render () {
+            console.log(this.props);
             var rows = this.props.spaces.map((row, i) =>
             {
                   var spot = row.map((element, j) =>

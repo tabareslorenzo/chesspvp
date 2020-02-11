@@ -53,7 +53,7 @@ class Space extends Component
             //             <td key={this.props.key}>werwer</td>
             //       // </div>
             // )
-            // console.log(this.props.content);
+            // console.log(this.props);
             const {url, changeBackground, full, playable} = this.props.content;
             //this.loadImage(url);
             // const images = require.context(url1, true);

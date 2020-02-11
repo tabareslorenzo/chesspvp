@@ -16,6 +16,7 @@ class Image extends Component
 
       render () {
             const url = this.props.url;
+            // console.log(url);
             switch(url)
             {
                   case 'b-rook.png':

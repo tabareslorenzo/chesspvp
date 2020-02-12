@@ -5,6 +5,8 @@ export default class Game
 {
       constructor(board = this.newBoard().init(), selectedpos = [-1,-1], yourTurn = true)
       {
+            // console.log(board);
+            // console.log(selectedpos);
             this.board = board;
             this.yourTurn = yourTurn;
             this.selectedpos = selectedpos;
@@ -24,6 +26,24 @@ export default class Game
       valid_pos(pos, newpos, blocking)
       {
             var DirectionHandler = new Direction;
+            // if(this.board[pos[0]][pos[1]].id == "1,0")
+            // {
+            //       if(newpos[0] == 0 && newpos[1] == 1){
+            //             console.log(this.board[newpos[0]][newpos[1]]);
+            //             console.log(newpos);
+            //             console.log(this.board);
+            //       }
+            //
+            // }
+            // if(newpos[0] == 0 && newpos[1] == 1)
+            // {
+            //       if(pos[0] == 1 && pos[1] == 0)
+            //       {
+            //             console.log(this.board);
+            //             console.log(this.board[newpos[0]][newpos[1]]);
+            //             console.log(this.board[pos[0]][pos[1]]);
+            //       }
+            // }
             //gets direction
             const dir = DirectionHandler.whatDirection(pos, newpos);
             if(pos[0] == newpos[0] && pos[1] == newpos[1])
@@ -31,6 +51,7 @@ export default class Game
                   return false;
             }
 
+            this.board[newpos[0]][newpos[1]] = this.fix(this.board[newpos[0]][newpos[1]]);
             var notBlocked;
             const diff = DirectionHandler.distance(pos,newpos);
             if(dir== -1)
@@ -67,15 +88,42 @@ export default class Game
                         }
                   }
                   // console.log();
-                  if(this.board[pos[0]][pos[1]].getColor() == this.board[newpos[0]][newpos[1]].getColor())
+                  if(this.board[pos[0]][pos[1]].getColor() === this.board[newpos[0]][newpos[1]].getColor())
                   {
+                        // if(pos[0] == 0 && pos[1] == 1)
+                        // {
+                        //       console.log(newpos);
+                        //       console.log(this.board[pos[0]][pos[1]].getColor());
+                        //       console.log(this.board[newpos[0]][newpos[1]].getColor());
+                        // }
+
                         // console.log("piece of same color");
                         // console.log(diff);
                         // console.log("piece of same color");
                         // console.log(newpos[0] + newpos[1]);
                         return false;
                   }
+
             }
+            else{
+                  if(this.board[pos[0]][pos[1]].getColor()=='b')
+                  {
+                        // console.log(newpos);
+                        // console.log(this.board[newpos[0]][newpos[1]]);
+                        if (this.board[newpos[0]][newpos[1]].color=='b') {
+                              console.log(this.board[newpos[0]][newpos[1]]);
+                        }
+
+
+                  }
+                  else if(this.board[pos[0]][pos[1]].color=='b'){
+                        if (this.board[newpos[0]][newpos[1]].color=='b' ) {
+                              console.log(this.board[newpos[0]][newpos[1]]);
+                        }
+                  }
+
+            }
+
 
             //for knight moves which blocking isnt relavent
             if( this.board[pos[0]][pos[1]].isValidmove(pos[0], pos[1], newpos[0], newpos[1]))
@@ -176,7 +224,7 @@ export default class Game
                         }
                         else if(!(this.board[pos[0]][pos[1]] instanceof Piece))
                         {
-                              console.log(obj);
+                              // console.log(obj);
 
 
                               // if(this.board[pos[0]][pos[1]] != {})
@@ -264,11 +312,17 @@ export default class Game
 
       }
 
-      makeMove(x,y)
+      makeMove(x,y, pos = false)
       {
+            var x0 = this.selectedpos[0];
+            var y0 = this.selectedpos[1];
+            if(pos)
+            {
+                  var x0 = this.selectedpos[0];
+                  var y0 = this.selectedpos[1];
+            }
             // console.log(this.selectedpos);
-            const x0 = this.selectedpos[0];
-            const y0 = this.selectedpos[1];
+
             // console.log(x);
             // console.log(y);
             // console.log(this.selectedpos);

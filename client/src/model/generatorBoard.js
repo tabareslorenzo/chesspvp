@@ -47,7 +47,7 @@ export default class generateBoard
                         obj = new pawn(p.color, 'pawn', p.id);
                         break;
             }
-            obj.prototype = Piece;
+            // obj.prototype = Piece;
             // console.log(obj.prototype);
             return obj;
       }

@@ -2,6 +2,9 @@ import Game from '../game.js'
 
 export default class AI
 {
+      //pass previous min or max
+      //if element greater than min return
+      //pass prev max if element less than return
       constructor(game)
       {
             this.game = game;
@@ -34,7 +37,7 @@ export default class AI
 
             // var nextGameState = new Game(JSON.parse(this.prevBoard));
             // this.game.fixboard();
-            var res = this.minimax(whitePieces, blackPieces, this.game, false, 1);
+            var res = this.minimax(whitePieces, blackPieces, this.game, false, 3);
             console.log(res);
             var move = res.move;
             var pos = res.piece;
@@ -55,7 +58,7 @@ export default class AI
                   {
                         if(board[i][j]==true)
                         {
-                              console.log(board[i][j]);
+                              // console.log(board[i][j]);
                               moves.push([i,j]);
                         }
                   }
@@ -68,16 +71,31 @@ export default class AI
             // console.log();
             // console.log(whitePieces);
             // console.log(blackPieces);
+            var x = 0;
+            var y = 0;
+
             for(var i of whitePieces)
             {
                   // console.log(i[1]);
                   result -= i[1].getValue();
+                  x++;
+                  // console.log(result);
             }
             for(var i of blackPieces)
             {
                   // console.log(i);
                   // console.log(i[1]);
+                  y++;
                   result += i[1].getValue();
+            }
+            // console.log(x);
+            // console.log(y);
+            // console.log(result);
+            if(Math.abs(result) > 20)
+            {
+                  // console.log(result);
+                  // console.log(whitePieces);
+                  // console.log(blackPieces);
             }
             // console.log(result);
             return result;
@@ -98,11 +116,11 @@ export default class AI
             return this.game.getState();
       }
 
-      minimax(map1, map2, game, white, depth)
+      minimax(map1, map2, game, white, depth, prevbest)
       {
             // game.fixboard();
             // console.log("klejwrhwjerkjh");
-            // console.log(depth);
+            console.log(depth);
             // console.log(white);
 
             //use helper function to pass all pieces playable in turn and returns
@@ -168,20 +186,31 @@ export default class AI
                               // console.log(j);
                               // game.save();
                               // game.setSelected(i);
-                              game.makeMove(j[0],j[1]);
+                              game.makeMove(j[0],j[1], i);
                               this.minimax(map, map2, game, !white, depth);
                               var decsionTree = this.minimax(map, mapB, game, !white, depth);
                               // console.log(i);
                               // game.load(i);
                               //
                               game = new Game(JSON.parse(prev), i);
+                              // if(j[0]==2 && j[1]==0)
+                              // {
+                              //       console.log(map);
+                              //       console.log(mapB);
+                              //       console.log();
+                              // }
                               var res = this.eval_func(map, mapB);
                               // console.log(decsionTree);
                               // console.log(descionTree.val);
                               // console.log(res);
                               // console.log(decsionTree);
+
                               const updatedRes = this.cleanNullMoves(res,decsionTree);
-                              if(bestmove.val > updatedRes)
+                              // if(prevbest!=null)
+                              // {
+                              //       if()
+                              // }
+                              if(bestmove.val > updatedRes || bestmove.move == null)
                               {
 
                                     bestmove.val = updatedRes;
@@ -220,17 +249,19 @@ export default class AI
 
                         // game.fixboard();
                         // console.log(this.game.fix(x[1] instanceOf Piece);
-                        var possible_moves = this.listofmoves(this.game.valid_moves(i, this.game.fix(x[1])));
+                        var possible_moves = this.listofmoves(game.valid_moves(i, game.fix(x[1])));
                         // console.log(this.game.fix(x[1]));
-                        console.log(x[1]);
+                        // console.log(x[1]);
 
-                        console.log(possible_moves);
+                        // console.log(possible_moves);
+                        // console.log(x[1]);
                         if(possible_moves.length>0)
                         {
                               // console.log(x);
                         }
                         // console.log(map2.size);
                         // console.log(game.getBoard());
+                        // console.log(x[1]);
                         // console.log(possible_moves);
 
                         for(var j of possible_moves)
@@ -239,6 +270,8 @@ export default class AI
                               // var nextGameState = new Game(game.getBoard() ,i[0]);
                               var map = new Map(map2);
                               var mapW = new Map(map1);
+                              // console.log(map);
+                              // console.log(mapW);
                               // map = clone(map2);
                               // console.log(JSON.parse(this.prevBoard));
 
@@ -252,9 +285,10 @@ export default class AI
                               // console.log(j);
                               // console.log(j);
                               const prev = JSON.stringify(game.getBoard());
+                              // console.log(prev);
                               // game.save();
                               // console.log(j);
-                              game.makeMove(j[0],j[1]);
+                              game.makeMove(j[0],j[1], i);
 
                               // mapW.set(JSON.stringify(x), x);
                               // console.log(mapW.get(JSON.stringify(y)));
@@ -266,15 +300,25 @@ export default class AI
 
                               var decsionTree = this.minimax(mapW, map, game, !white, depth);
                               // game.load(i);
+                              // console.log(JSON.parse(prev));
+                              // this.game = new Game(JSON.parse(prev), i);
                               game = new Game(JSON.parse(prev), i);
                               var res = this.eval_func(mapW, map);
+                              // console.log(this.game.getBoard());
                               // console.log(res);
                               // console.log(decsionTree);
                               const updatedRes = this.cleanNullMoves(res,decsionTree);
                               // console.log(updatedRes);
+                              // if(decsionTree.val == -40)
+                              // {
+                              //       console.log(bestmove);
+                              //       console.log(decsionTree);
+                              // }
 
                               if(bestmove.val < updatedRes || bestmove.move == null)
                               {
+                                    // console.log(decsionTree.val);
+
                                     // console.log(updatedRes);
                                     bestmove.val = updatedRes;
                                     // console.log(res + decsionTree.val);

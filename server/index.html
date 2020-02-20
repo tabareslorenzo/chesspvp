@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+      <head>
+            <title>Socket.IO chat</title>
+      </head>
+      <body>
+    <ul id="messages"></ul>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+<script>
+var socket = io();
+// var room = null;
+
+// socket.on('connection', function()
+// {
+//       console.log(room);
+//       console.log('k');
+//       socket.emit('my other event', { my: room, hello: 'jerwk' });
+// });
+
+socket.on('peer', function(data)
+{
+      console.log("peertopeer");
+      console.log(data);
+});
+
+socket.on('some event', function (data) {
+  console.log(data);
+  // room = data;
+  // console.log(JSON.stringify(data.hello));
+  console.log(data.hello);
+  //room name
+  localStorage.setItem('room', data.hello);
+  // console.log(socket);
+  // socket.emit('my other event', { my: 'what' });
+});
+
+  socket.on('news', function (data) {
+    console.log(data);
+    console.log(socket);
+    // console.log(room);
+    console.log(localStorage.getItem('room'));
+    // io.to(localStorage.getItem('room')).emit('peer');
+
+
+   socket.emit('my other event', { my: localStorage.getItem('room'), hello: 'jerwk' });
+  });
+/*
+      on move call send id
+*/
+
+
+
+  // const socket2 = io();
+  // socket2.on('news', function (data) {
+  //   console.log(data);
+  //   socket.emit('my other event', { my: 'whatever' });
+  // });
+
+</script>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+  //     var socket = io.connect('http://localhost');
+  //     socket.on('news', function (data) {
+  //   console.log(data);
+  //   socket.emit('my other event', { my: 'data' });
+  // });
+  //     $(function () {
+  //       $('form').submit(function(){
+  //         socket.emit('chat message', $('#m').val());
+  //         console.log($('#m').val());
+  //         $('#m').val('');
+  //         console.log('foo');
+  //         return true;
+  //       });
+  //       socket.on('chat message', function(msg){
+  //            console.log(msg);
+  //            console.log('kwerlkwerlkewrl');
+  //         $('#messages').append($('<li>').text(msg));
+  //         window.scrollTo(0, document.body.scrollHeight);
+  //         console.log('wejkrjkwe');
+  //       });
+  //     });
+    </script>
+  </body>
+</html>

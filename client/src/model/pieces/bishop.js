@@ -24,7 +24,7 @@ class bishop extends Piece
             {
                   return true;
             }
-            return false;
+            // return false;
             return false;
       }
       getValue()

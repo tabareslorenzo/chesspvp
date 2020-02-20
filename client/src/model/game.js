@@ -371,10 +371,54 @@ export default class Game
       {
             this.valid_moves([-1,-1]);
       }
-      fixboard()
+      stateToBoard(board)
+      {
+            // p.type rook(p.color, 'rook', p.id)
+            var brd = [];
+            var reverse = [];
+            for(var x = board.length-1; x >= 0; x--)
+            {
+                  brd.push([]);
+                  for(var y = board[x].length -1; y >= 0; y--)
+                  {
+                        var p = {};
+                        // console.log(board[x][y].url.length);
+                        if(board[x][y].url.length>6)
+                        {
+                              p.color = 'b';
+                              if(board[x][y].url[0] == 'b')
+                              {
+                                    p.color = 'w';
+                              }
+                              // p.color = board[x][y].url[0];
+                              p.type = board[x][y].url.substring(2, board[x][y].url.length - 4);
+                              p.id = x.toString() + ',' + y.toString();
+                              // console.log(p.type);
+                              // console.log(this.fix(p));
+
+
+                        }
+
+                        brd[board.length-1-x].push(this.fix(p));
+                  }
+            }
+            // for(var i = brd.length -1; i >= 0; i--)
+            // {
+            //       for(var j = brd[i].length-1; j >= 0; j--)
+            //       {
+            //
+            //       }
+            // }
+            console.log(brd);
+            // console.log(this.board);
+            this.board = brd;
+            return this.board;
+
+      }
+      fixboard(board)
       {
             const brd = new generateBoard();
-            return brd.gen(this.board);
+            return brd.gen(board);
       }
       getState()
       {
@@ -382,7 +426,7 @@ export default class Game
             // console.log(this.board);
 
             // console.log(this.board);
-            this.board = this.fixboard();
+            this.board = this.fixboard(this.board);
             // console.log(this.board);
 
             var isfull = [];
@@ -411,7 +455,7 @@ export default class Game
                   }
 
             }
-            // console.log(isfull);
+            console.log(isfull);
             return isfull;
 
       }

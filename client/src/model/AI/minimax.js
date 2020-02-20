@@ -37,7 +37,8 @@ export default class AI
 
             // var nextGameState = new Game(JSON.parse(this.prevBoard));
             // this.game.fixboard();
-            var res = this.minimax(whitePieces, blackPieces, this.game, false, 3);
+
+            var res = this.minimax(whitePieces, blackPieces, this.game, false, 2, null);
             console.log(res);
             var move = res.move;
             var pos = res.piece;
@@ -120,8 +121,9 @@ export default class AI
       {
             // game.fixboard();
             // console.log("klejwrhwjerkjh");
-            console.log(depth);
+            // console.log(depth);
             // console.log(white);
+            // console.log(prevbest);
 
             //use helper function to pass all pieces playable in turn and returns
             var bestmove = {};
@@ -187,8 +189,13 @@ export default class AI
                               // game.save();
                               // game.setSelected(i);
                               game.makeMove(j[0],j[1], i);
-                              this.minimax(map, map2, game, !white, depth);
-                              var decsionTree = this.minimax(map, mapB, game, !white, depth);
+                              // this.minimax(map, map2, game, !white, depth);
+                              var nextbest = null;
+                              if(bestmove.move != null && bestmove.piece != null)
+                              {
+                                    nextbest = bestmove.val;
+                              }
+                              var decsionTree = this.minimax(map, mapB, game, !white, depth, nextbest);
                               // console.log(i);
                               // game.load(i);
                               //
@@ -208,7 +215,12 @@ export default class AI
                               const updatedRes = this.cleanNullMoves(res,decsionTree);
                               // if(prevbest!=null)
                               // {
-                              //       if()
+                              //       if(prevbest >= updatedRes)
+                              //       {
+                              //             // console.log(updatedRes);
+                              //             // console.log(prevbest);
+                              //             return bestmove;
+                              //       }
                               // }
                               if(bestmove.val > updatedRes || bestmove.move == null)
                               {
@@ -297,8 +309,13 @@ export default class AI
                               // console.log(mapW.has(j));
 
                               mapW.delete(JSON.stringify(j));
+                              var nextbest = null;
+                              if(bestmove.move != null && bestmove.piece != null)
+                              {
+                                    nextbest = bestmove.val;
+                              }
 
-                              var decsionTree = this.minimax(mapW, map, game, !white, depth);
+                              var decsionTree = this.minimax(mapW, map, game, !white, depth, nextbest);
                               // game.load(i);
                               // console.log(JSON.parse(prev));
                               // this.game = new Game(JSON.parse(prev), i);
@@ -314,7 +331,14 @@ export default class AI
                               //       console.log(bestmove);
                               //       console.log(decsionTree);
                               // }
-
+                              // if(prevbest!=null)
+                              // {
+                              //       if(prevbest <= updatedRes)
+                              //       {
+                              //             // console.log(prevbest);
+                              //             return bestmove;
+                              //       }
+                              // }
                               if(bestmove.val < updatedRes || bestmove.move == null)
                               {
                                     // console.log(decsionTree.val);

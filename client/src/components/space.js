@@ -15,10 +15,10 @@ class Space extends Component
 
       select = (high,p,f) =>
       {
-            console.log(high);
-            console.log(p);
-            console.log(f);
-            console.log();
+            // console.log(high);
+            // console.log(p);
+            // console.log(f);
+            // console.log();
             if(high)
             {
                   this.props.move(this.props.key1[0],this.props.key1[1]);

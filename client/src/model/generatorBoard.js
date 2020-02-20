@@ -20,6 +20,7 @@ export default class generateBoard
             var obj;
             obj = {};
             // console.log(p);
+            // console.log(p);
             // if(p == null || p== undefined)
             // {
             //       return p;
@@ -49,6 +50,7 @@ export default class generateBoard
             }
             // obj.prototype = Piece;
             // console.log(obj.prototype);
+            // console.log(obj);
             return obj;
       }
       gen(board)

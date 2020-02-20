@@ -9,26 +9,41 @@ class pawn extends Piece
             this.value = 10;
             this.prototype = Piece;
       }
-      isValidmove(fromX, fromY, toX, toY, notBlocked = false, notOne = true)
+      isValidmove(fromX, fromY, toX, toY, notBlocked = false, notOne = true, isfull = false, firstmove = false)
       {
-            // if(fromX == 1 && fromY == 3)
-            // {
-            //       console.log(notOne);
-            //       console.log(fromX);
-            //       console.log(fromY);
-            //       console.log(toX);
-            //       console.log(toY);
-            //       console.log("ehjhjekhr");
-            // }
-            if(!notBlocked || notOne)
+            if(notOne)
             {
                   return false;
             }
-            // var DirectionHandler = new Direction;
-            // const DirEnum = DirectionHandler.defineDir();
-            // const diff = DirectionHandler.calc_diff([fromX, fromY], [toX, toY]);
-            // if()
-            return true;
+            var DirectionHandler = new Direction;
+            const dir = DirectionHandler.calc_diff([fromX, fromY], [toX, toY]);
+            const is = DirectionHandler.defineDir();
+
+            if(this.getColor() =='b')
+            {
+                  if((dir == is.DOWNRIGHT || dir == is.DOWNLEFT) && !notBlocked)
+                  {
+                        return true;
+                  }
+                  if(dir == is.DOWN && notBlocked)
+                  {
+                        return true;
+                  }
+            }
+            else
+            {
+                  if((dir == is.UPLEFT || dir == is.UPRIGHT) && !notBlocked)
+                  {
+                        return true;
+                  }
+                  if((dir == is.UP) && notBlocked)
+                  {
+                        return true;
+                  }
+
+            }
+
+            return false;
       }
       getValue()
       {

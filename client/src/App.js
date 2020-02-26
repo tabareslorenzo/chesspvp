@@ -23,9 +23,12 @@ class App extends Component {
       }
       componentWillMount()
       {
+            // window.addEventListener('storage', this.onstorage());
             localStorage.removeItem('room');
             localStorage.removeItem('player');
             localStorage.removeItem('isTurn');
+            localStorage.removeItem('board');
+            // window.addEventListener('storage', this.onstorage);
             // socketManager = new socketClient();
             //gameState = new Game();
             // var pieces = [];
@@ -48,6 +51,13 @@ class App extends Component {
             // const pos = [0,0];
             // // var validMoves = game.valid_moves(pos);
             // this.updateView(gameState);
+            // window.addEventListener('storage', () => {
+            //   // When local storage changes, dump the list to
+            //   // the console.
+            //   this.onstorage();
+            //   console.log(JSON.parse(window.localStorage.getItem('sampleList')));
+            // });
+
 
 
 
@@ -67,16 +77,21 @@ class App extends Component {
             socketManager = new socketClient();
             // this.socketClient.connect();
             // this.socketInit();
-            window.addEventListener('storage', this.onstorage);
+
 
             this.setState({multiplayer: true});
             //console.log(socketManager.getSocket());
+
+            // window.addEventListener('storage', this.onstorage());
             this.updateView(gameState);
       }
 
-      initAI = () =>
+      initAI = (opponentLeft = false) =>
       {
-            socketManager.disconnect();
+            if(!opponentLeft && socketManager !== undefined)
+            {
+                  socketManager.disconnect();
+            }
             gameState = new Game();
             ai = new AI(gameState);
             this.setState({multiplayer: false});
@@ -105,7 +120,7 @@ class App extends Component {
 
         if(JSON.parse(localStorage.getItem('isTurn')) == false)
         {
-            console.log(socketManager.receive());//socketManager.receive();
+            // console.log(socketManager.receive());//socketManager.receive();
              // socketManager.receive();
        }
        console.log(localStorage);
@@ -263,7 +278,7 @@ class App extends Component {
                            <Mode multiplayer={this.state.multiplayer} multSelected={this.initMult} singleSelected={this.initAI}/>
                             <Grid spaces={this.state.spaces} pieceSelected={this.pieceSelected} moveSelected={this.moveSelected}/>
                       </div>
-                      <RetrieveHandler recieved={this.recieved} socket={socketManager.getSocket()}></RetrieveHandler>
+                      <RetrieveHandler recieved={this.recieved} socket={socketManager.getSocket()} singleSelected={this.initAI} setUpMult={this.onstorage}></RetrieveHandler>
 
 
 

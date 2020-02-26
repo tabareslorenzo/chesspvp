@@ -455,7 +455,7 @@ export default class Game
                   }
 
             }
-            console.log(isfull);
+            // console.log(isfull);
             return isfull;
 
       }

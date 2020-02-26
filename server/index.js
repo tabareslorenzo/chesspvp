@@ -12,9 +12,9 @@ app.get('/', function (req, res) {
   // res.sendFile('../' + __dirname + 'client/src/App.js');
 });
 
-deleteRooms = (socket) =>
+deleteRooms = (socket, room = socket.id) =>
 {
-      socket.leave(socket.id);
+      socket.leave(room);
 }
 
 /*
@@ -61,7 +61,7 @@ io.on('connection', function (socket) {
     console.log(io.sockets.adapter.rooms);
     // console.log(data.hello);
     // console.log(data);
-    console.log(data.board);
+    // console.log(data.board);
     socket.broadcast.to(data.my).emit('peer', {board:data.board, turn:true});
     console.log('10001');
     // console.log(io.sockets.clients(data.my));
@@ -72,5 +72,11 @@ io.on('connection', function (socket) {
 
     // console.log(matchhandler.addplayer(socket));
   });
-  // console.log(matchhandler.addplayer(socket));
+
+  socket.on('end game', function (data) {
+
+    socket.broadcast.to(data.my).emit('oppenent left');
+    console.log('10001');
+
+  });
 });

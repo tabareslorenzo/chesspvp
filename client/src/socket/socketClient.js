@@ -24,11 +24,13 @@ export default class SocketClient
       }
       disconnect()
       {
-            localStorage.removeItem('room');
+
+
+            //delete room in server
+            socket.emit('end game', { my: localStorage.getItem('room')});
             localStorage.removeItem('player');
             localStorage.removeItem('isTurn');
-            //delete room in server
-            //socket.emit('my other event', { my: localStorage.getItem('room'), board: JSON.stringify(board), g: player});
+            localStorage.removeItem('room');
             socket.close();
       }
 

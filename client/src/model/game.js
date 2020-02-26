@@ -130,25 +130,57 @@ export default class Game
             {
                   return true;
             }
-            if( this.board[pos[0]][pos[1]].isValidmove(pos[0], pos[1], newpos[0], newpos[1], notBlocked))
+            var empty = false;
+            if (!(this.board[newpos[0]][newpos[1]] instanceof Piece))
+            {
+                  // console.log('?????????');
+                  empty = true;
+            }
+            if( this.board[pos[0]][pos[1]].isValidmove(pos[0], pos[1], newpos[0], newpos[1], notBlocked, empty))
             {
                   return true;
             }
             //for king and pawn
             var notOne = true;
+            var isfull = false;
             if(Math.abs(diff[0]) == 1 || Math.abs(diff[1]) == 1)
             {
-                  if(pos[0]==1 && pos[3]==1)
-                  {
-                        console.log(diff);
-                  }
                   // console.log(diff);
                   notOne = false;
             }
-            if(this.board[pos[0]][pos[1]].isValidmove(pos[0], pos[1], newpos[0], newpos[1], notBlocked, notOne))
+            if (this.board[newpos[0]][newpos[1]] instanceof Piece)
+            {
+                  // console.log('?????????');
+                  isfull = true;
+            }
+            if(this.board[pos[0]][pos[1]].isValidmove(pos[0], pos[1], newpos[0], newpos[1], notBlocked, empty, notOne))
             {
                   return true;
             }
+            if(this.board[pos[0]][pos[1]].isValidmove(pos[0], pos[1], newpos[0], newpos[1], notBlocked, empty, notOne, isfull))
+            {
+                  return true;
+            }
+            var firstmove = false;
+            if(Math.abs(diff[0]) == 2 || Math.abs(diff[1]) == 2)
+            {
+                  // console.log('?');
+                  // console.log(pos[0]);
+                  // console.log(this.board[pos[0]][pos[1]].getColor());
+                  if((pos[0]==6 && this.board[pos[0]][pos[1]].getColor() == 'w')  || (pos[0]==1 && this.board[pos[0]][pos[1]].getColor() == 'b'))
+                  {
+                        firstmove = true;
+                        // if(this.board[pos[0]][pos[1]].isValidmove(pos[0], pos[1], newpos[0], newpos[1], notBlocked, notOne, false, firstmove))
+                        // {
+                        //       return true;
+                        // }
+                  }
+            }
+            if(this.board[pos[0]][pos[1]].isValidmove(pos[0], pos[1], newpos[0], newpos[1], notBlocked, empty, notOne, false, firstmove))
+            {
+                  return true;
+            }
+
             return false;
 
 
@@ -295,7 +327,7 @@ export default class Game
                         url: element.getUrl(),
                         changeBackground: this.highPos[x][y],
                         full: true,
-                        playable: this.yourTurn,
+                        playable: this.yourTurn && element.getColor()=='w',
                   };
             }
             else

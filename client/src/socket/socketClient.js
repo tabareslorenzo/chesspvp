@@ -27,7 +27,15 @@ export default class SocketClient
 
 
             //delete room in server
-            socket.emit('end game', { my: localStorage.getItem('room')});
+            console.log(localStorage.getItem('room'));
+            if(localStorage.getItem('room') === null)
+            {
+                  socket.emit('stop matchmaking');
+            }
+            else
+            {
+                  socket.emit('end game', { my: localStorage.getItem('room')});
+            }
             localStorage.removeItem('player');
             localStorage.removeItem('isTurn');
             localStorage.removeItem('room');

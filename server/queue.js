@@ -14,4 +14,8 @@ module.exports = class Queue extends Array
             }
 
       }
+      top()
+      {
+            return this[0];
+      }
 }

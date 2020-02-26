@@ -19,13 +19,13 @@ class Mode extends Component
       }
       selectSingle = () =>
       {
-            // if(this.props.multiplayer)
-            // {
+            if(this.props.multiplayer)
+            {
                   console.log("single");
                   this.props.singleSelected();
                   //this.props.
                   // call func
-            // }
+            }
 
       }
       render ()

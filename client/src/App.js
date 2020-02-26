@@ -33,8 +33,8 @@ class App extends Component {
             //gameState = new Game();
             // var pieces = [];
 
-            // gameState = new Game();
-            // ai = new AI(gameState);
+            gameState = new Game();
+            ai = new AI(gameState);
             //
             // if(this.state.multiplayer)
             // {
@@ -50,7 +50,7 @@ class App extends Component {
             //
             // const pos = [0,0];
             // // var validMoves = game.valid_moves(pos);
-            // this.updateView(gameState);
+            this.updateView(gameState);
             // window.addEventListener('storage', () => {
             //   // When local storage changes, dump the list to
             //   // the console.
@@ -88,6 +88,8 @@ class App extends Component {
 
       initAI = (opponentLeft = false) =>
       {
+            console.log('what?');
+            console.log(socketManager);
             if(!opponentLeft && socketManager !== undefined)
             {
                   socketManager.disconnect();

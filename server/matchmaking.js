@@ -18,10 +18,14 @@ module.exports = class Matchmaking
             return res;
 
       }
-      // maxElement()
-      // {
-      //       return this.maxkey++;
-      // }
+      prevPlayer(id)
+      {
+            if(this.rooms.top().id == id)
+            {
+                  this.rooms.pop();
+                  // console.log('worked');
+            }
+      }
 
       addplayer(player)
       {

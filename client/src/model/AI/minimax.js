@@ -1,4 +1,5 @@
 import Game from '../game.js'
+import Evalpos from './evalpos.js'
 
 export default class AI
 {
@@ -23,6 +24,8 @@ export default class AI
       makeMove()
       {
             // console.log(this.game.getPiecesPositions());
+
+
             this.game.fixboard();
             var {blackPieces, whitePieces} = this.game.getPiecesPositions();
             console.log(blackPieces);
@@ -69,6 +72,8 @@ export default class AI
       eval_func(whitePieces, blackPieces)
       {
             var result = 0;
+            var helper = new Evalpos();
+
             // console.log();
             // console.log(whitePieces);
             // console.log(blackPieces);
@@ -77,8 +82,10 @@ export default class AI
 
             for(var i of whitePieces)
             {
-                  // console.log(i[1]);
-                  result -= i[1].getValue();
+                  // console.log(i);
+
+                  // result -= i[1].getValue();
+                  result -= (i[1].getValue() + helper.positionVal(i[1], JSON.parse(i[0])[0], JSON.parse(i[0])[1]));
                   x++;
                   // console.log(result);
             }
@@ -87,8 +94,10 @@ export default class AI
                   // console.log(i);
                   // console.log(i[1]);
                   y++;
-                  result += i[1].getValue();
+                  // result += i[1].getValue();
+                  result += (i[1].getValue() + helper.positionVal(i[1], JSON.parse(i[0])[0], JSON.parse(i[0])[1]));
             }
+            // console.log(result);
             // console.log(x);
             // console.log(y);
             // console.log(result);
@@ -213,15 +222,7 @@ export default class AI
                               // console.log(decsionTree);
 
                               const updatedRes = this.cleanNullMoves(res,decsionTree);
-                              // if(prevbest!=null)
-                              // {
-                              //       if(prevbest >= updatedRes)
-                              //       {
-                              //             // console.log(updatedRes);
-                              //             // console.log(prevbest);
-                              //             return bestmove;
-                              //       }
-                              // }
+
                               if(bestmove.val > updatedRes || bestmove.move == null)
                               {
 
@@ -232,6 +233,15 @@ export default class AI
                                     // console.log('jkljkjkl');
                                     // console.log(bestmove);
 
+                              }
+                              if(prevbest!=null)
+                              {
+                                    if(prevbest >= updatedRes)
+                                    {
+                                          // console.log(updatedRes);
+                                          // console.log(prevbest);
+                                          return bestmove;
+                                    }
                               }
 
                               //bestmove = Math.max(this.eval_func(map, map2) + this.minimax(map, map2, game, !white, depth).val, bestmove);
@@ -331,14 +341,7 @@ export default class AI
                               //       console.log(bestmove);
                               //       console.log(decsionTree);
                               // }
-                              // if(prevbest!=null)
-                              // {
-                              //       if(prevbest <= updatedRes)
-                              //       {
-                              //             // console.log(prevbest);
-                              //             return bestmove;
-                              //       }
-                              // }
+
                               if(bestmove.val < updatedRes || bestmove.move == null)
                               {
                                     // console.log(decsionTree.val);
@@ -353,6 +356,14 @@ export default class AI
                                     // console.log('jkljkjkl');
                                     // console.log(bestmove);
 
+                              }
+                              if(prevbest!=null)
+                              {
+                                    if(prevbest <= updatedRes)
+                                    {
+                                          // console.log(prevbest);
+                                          return bestmove;
+                                    }
                               }
 
 

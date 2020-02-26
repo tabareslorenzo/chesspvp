@@ -63,7 +63,7 @@ io.on('connection', function (socket) {
     // console.log(data);
     // console.log(data.board);
     socket.broadcast.to(data.my).emit('peer', {board:data.board, turn:true});
-    console.log('10001');
+    console.log('100012');
     // console.log(io.sockets.clients(data.my));
     // console.log('k');
     // console.log(typeof socket);
@@ -72,11 +72,22 @@ io.on('connection', function (socket) {
 
     // console.log(matchhandler.addplayer(socket));
   });
+  socket.on('stop matchmaking', function () {
+
+    // console.log(socket.id);
+    //matchhandler.addplayer(socket);
+    // console.log(matchhandler);
+    // matchhandler.prevPlayer(null)
+    matchhandler.prevPlayer(socket.id);
+    // console.log('stop matchmaking');
+
+  });
 
   socket.on('end game', function (data) {
 
     socket.broadcast.to(data.my).emit('oppenent left');
     console.log('10001');
+    console.log('open');
 
   });
 });

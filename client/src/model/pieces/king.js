@@ -9,7 +9,7 @@ class king extends Piece
             this.value = 1000;
             this.prototype = Piece;
       }
-      isValidmove(fromX, fromY, toX, toY, notBlocked = false, notOne = true)
+      isValidmove(fromX, fromY, toX, toY, notBlocked = false, empty = false, notOne = true)
       {
             if(!notBlocked || notOne)
             {

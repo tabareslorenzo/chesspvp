@@ -1,0 +1,36 @@
+.btn-container{
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%;
+      /* position: 'absolute'; */
+      background: white;
+      /* padding-bottom: 25px; */
+      margin-top: 25px;
+      margin-bottom: 25px;
+
+      /* left: 50%;
+      top: 50%; */
+      border-radius: 30px;
+      /* transform: 'translate(-50%, -50%)'; */
+      /* -moz-box-sizing:    border-box;
+      -webkit-box-sizing: border-box;
+      box-sizing:        border-box; */
+}
+/* box-sizing: border-box; */
+.btn-container, .btn {
+    -moz-box-sizing:    border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing:        border-box;
+}
+
+.btn{
+      width: 50%;
+      /* text-align: center; */
+}
+.btn-txt{
+      font-size:1.5vw;
+}
+
+/* .mult{
+
+} */

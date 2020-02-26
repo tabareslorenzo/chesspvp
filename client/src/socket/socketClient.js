@@ -1,5 +1,5 @@
 import io from 'socket.io-client';
-let socket = io('http://localhost:3001');
+var socket;
 
 
 export default class SocketClient
@@ -7,17 +7,29 @@ export default class SocketClient
 
       constructor()
       {
+            socket = io('http://localhost:3001')
             socket.on('send player', function (data)
             {
-                  // console.log('jwkejrrwkle');
                   localStorage.setItem('room', data.room);
                   localStorage.setItem('player', data.p);
                   localStorage.setItem('isTurn', data.turn);
+                  console.log('jwkejrrwkle');
+
             });
       }
+
       getSocket()
       {
             return socket;
+      }
+      disconnect()
+      {
+            localStorage.removeItem('room');
+            localStorage.removeItem('player');
+            localStorage.removeItem('isTurn');
+            //delete room in server
+            //socket.emit('my other event', { my: localStorage.getItem('room'), board: JSON.stringify(board), g: player});
+            socket.close();
       }
 
       isConnected()

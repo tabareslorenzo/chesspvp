@@ -5,6 +5,7 @@ import AI from './model/AI/minimax.js';
 import Grid from './components/grid.js';
 import socketClient from './socket/socketClient.js'
 import RetrieveHandler from './components/retrieveHandler.js'
+import Mode from './components/mode.js'
 // import io from 'socket.io-client';
 // let socket = io('http://localhost:3001');
 // import io from 'socket.io-client';
@@ -17,35 +18,69 @@ class App extends Component {
       state = {
             spaces:[],
             data: false,
-            multiplayer: true,
+            multiplayer: false,
 
       }
       componentWillMount()
       {
+            localStorage.removeItem('room');
+            localStorage.removeItem('player');
+            localStorage.removeItem('isTurn');
+            // socketManager = new socketClient();
+            //gameState = new Game();
             // var pieces = [];
 
+            // gameState = new Game();
+            // ai = new AI(gameState);
+            //
+            // if(this.state.multiplayer)
+            // {
+            //       // this.socketClient.connect();
+            //       // this.socketInit();
+            //       window.addEventListener('storage', this.onstorage());
+            //       socketManager = new socketClient();
+            //       //console.log(socketManager.getSocket());
+            // }
+            //
+            //
+            //
+            //
+            // const pos = [0,0];
+            // // var validMoves = game.valid_moves(pos);
+            // this.updateView(gameState);
+
+
+
+
+
+      }
+      componentWillUnmount()
+      {
+            console.log('closing');
+            // localStorage.removeItem('room');
+            // localStorage.removeItem('player');
+            // localStorage.removeItem('isTurn');
+      }
+      initMult = () =>
+      {
+            gameState = new Game();
+            socketManager = new socketClient();
+            // this.socketClient.connect();
+            // this.socketInit();
+            window.addEventListener('storage', this.onstorage);
+
+            this.setState({multiplayer: true});
+            //console.log(socketManager.getSocket());
+            this.updateView(gameState);
+      }
+
+      initAI = () =>
+      {
+            socketManager.disconnect();
             gameState = new Game();
             ai = new AI(gameState);
-
-            if(this.state.multiplayer)
-            {
-                  // this.socketClient.connect();
-                  // this.socketInit();
-                  socketManager = new socketClient();
-                  //console.log(socketManager.getSocket());
-            }
-            window.addEventListener('storage', this.onstorage());
-
-
-
-            const pos = [0,0];
-            // var validMoves = game.valid_moves(pos);
+            this.setState({multiplayer: false});
             this.updateView(gameState);
-
-
-
-
-
       }
 
 
@@ -63,7 +98,7 @@ class App extends Component {
        //       gameState = new Game(gameState.stateToBoard(state), undefined, JSON.parse(localStorage.getItem('isTurn')));
        // }
 
-        this.updateView(gameState);
+
         // console.log(this.state.spaces);
         // console.log(localStorage.getItem('room'));
         // console.log(localStorage.getItem('player'));
@@ -73,6 +108,11 @@ class App extends Component {
             console.log(socketManager.receive());//socketManager.receive();
              // socketManager.receive();
        }
+       console.log(localStorage);
+       console.log(localStorage.getItem('isTurn'));
+       console.log('in storage');
+       console.log(gameState);
+       this.updateView(gameState);
        localStorage.removeItem('isTurn');
        // window.removeEventListener('storage', this.onstorage());
        // window.addEventListener('storage', this.onstorage());
@@ -212,21 +252,41 @@ class App extends Component {
       }
       render(){
             // console.log(this.state);
-        return (
-          <div>
-            <header className="App-header">
-            </header>
-            <React.Fragment>
-                  <div className="App">
-                        <Grid spaces={this.state.spaces} pieceSelected={this.pieceSelected} moveSelected={this.moveSelected}/>
-                  </div>
-                  <RetrieveHandler recieved={this.recieved} socket={socketManager.getSocket()}></RetrieveHandler>
+      if(this.state.multiplayer)
+      {
+            return (
+              <div>
+                <header className="App-header">
+                </header>
+                <React.Fragment>
+                      <div className="App">
+                           <Mode multiplayer={this.state.multiplayer} multSelected={this.initMult} singleSelected={this.initAI}/>
+                            <Grid spaces={this.state.spaces} pieceSelected={this.pieceSelected} moveSelected={this.moveSelected}/>
+                      </div>
+                      <RetrieveHandler recieved={this.recieved} socket={socketManager.getSocket()}></RetrieveHandler>
 
 
 
-            </React.Fragment>
-          </div>
-        );
+                </React.Fragment>
+              </div>
+            );
+      }
+      else{
+            return (
+              <div>
+                <header className="App-header">
+                </header>
+                <React.Fragment>
+                      <div className="App">
+                           <Mode multiplayer={this.state.multiplayer} multSelected={this.initMult} singleSelected={this.initAI}/>
+                            <Grid spaces={this.state.spaces} pieceSelected={this.pieceSelected} moveSelected={this.moveSelected}/>
+                      </div>
+
+                </React.Fragment>
+              </div>
+            );
+      }
+
  }
 }
 var gameState;

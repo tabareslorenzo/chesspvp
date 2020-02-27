@@ -24,10 +24,10 @@ class App extends Component {
       componentWillMount()
       {
             // window.addEventListener('storage', this.onstorage());
-            localStorage.removeItem('room');
-            localStorage.removeItem('player');
-            localStorage.removeItem('isTurn');
-            localStorage.removeItem('board');
+            // localStorage.removeItem('room');
+            // localStorage.removeItem('player');
+            // localStorage.removeItem('isTurn');
+            // localStorage.removeItem('board');
             // window.addEventListener('storage', this.onstorage);
             // socketManager = new socketClient();
             //gameState = new Game();

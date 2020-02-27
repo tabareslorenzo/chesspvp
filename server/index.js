@@ -2,7 +2,10 @@ const Macthmaking = require('./matchmaking.js');
 var matchhandler = new Macthmaking();
 var app = require('express')();
 var server = require('http').Server(app);
-var io = require('socket.io')(server);
+var io = require('socket.io')(server,
+{
+      pingTimeout: 60000
+});
 
 
 server.listen(3001);

@@ -13,6 +13,9 @@ class RetrieveHandler extends Component
             func = this.callApp.bind(this);
             func1 = this.setToSingle.bind(this);
             func2 = this.setUp.bind(this);
+            this.recieve();
+            this.endgame();
+            this.playerData();
       }
       setUp()
       {
@@ -75,9 +78,8 @@ class RetrieveHandler extends Component
 
       render () {
 
-            this.recieve();
-            this.endgame();
-            this.playerData();
+
+
             // this.callApp();
             // if(board != null)
             // {

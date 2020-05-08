@@ -10,7 +10,7 @@ services:
             links:
                   - api
       api:
-            container_name: backend
+            container_name: server
             restart: always
             build: ./server
             ports:

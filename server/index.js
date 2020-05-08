@@ -6,10 +6,20 @@ var io = require('socket.io')(server,
 {
       pingTimeout: 60000
 });
+const path = require('path');
 
+const PORT = process.env.PORT || 3001;
 
-server.listen(3001);
+server.listen(PORT);
 // WARNING: app.listen(80) will NOT work here!
+
+if(process.env.NODE_ENV === 'production')
+{
+      app.use(express.static('../cleint/build'));
+      app.get('*', (req,res) => {
+            res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+      });
+}
 
 app.get('/', function (req, res) {
   // res.sendFile('../' + __dirname + 'client/src/App.js');

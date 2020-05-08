@@ -14,4 +14,4 @@ services:
             restart: always
             build: ./server
             ports:
-                  - '4000:4001'
+                  - '4001:4001'
